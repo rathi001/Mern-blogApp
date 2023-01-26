@@ -19,7 +19,7 @@ function SettingScreen() {
   const [password, setPassword] = useState('');
   const [success, setSuccess] = useState(false);
 
-  const PF = `http://localhost:4000/image/`;
+  const PF = `/image/`;
 
   const updateProfile = async (e) => {
     e.preventDefault();
@@ -37,12 +37,12 @@ function SettingScreen() {
       formData.append('file', file);
       updatedUser.profilePic = fileName;
       try {
-        await axios.post('http://localhost:4000/api/v3/upload', formData);
+        await axios.post('/api/v3/upload', formData);
       } catch (error) { }
       try {
         setSuccess(true);
         const { data } = await axios.put(
-          `http://localhost:4000/api/v3/users/${user.data._id}`,
+          `/api/v3/users/${user.data._id}`,
           updatedUser
         );
         dispatch(UserUpdateSuccess(data));
@@ -54,7 +54,7 @@ function SettingScreen() {
 
   const deleteProfile = async () => {
     try {
-      await axios.delete(`http://localhost:4000/api/v3/users/${user.data._id}`, {
+      await axios.delete(`/api/v3/users/${user.data._id}`, {
         data: null,
       });
       window.location.reload();
